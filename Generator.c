@@ -1,27 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define DATA_FORMAT_IN "%[^,]%[^\n]"	
+#include <string.h>
 
-typedef struct{
-    char name[10];
-    char number[][4];
-}PHONEBOOK;
-PHONEBOOK phoneBook;
+char prefix[20];
+
 void loading(){
     // wordlist generator from prefixnumber.txt 
-    FILE *fp;
-    fp = fopen("prefixnumber.txt", "r");
-    if (fp == NULL){
+    FILE *phoneBook;
+    int i = 0;
+    phoneBook = fopen("prefixnumber.txt", "r");
+    if (phoneBook == NULL){
         printf("Error opening prefixnumber.txt file\n");
         printf("Please check if prefixnumber.txt in the same folder as .exe file\n");
         exit(1);
     }
-    while(fscanf(fp,DATA_FORMAT_IN,phoneBook.name,phoneBook.number) != EOF){
-        for(int j = 0; j < sizeof(phoneBook.number)/sizeof(phoneBook.number[0]); j++){
-            printf("%s\n",phoneBook.number[j]);
-        }
+    while(fgets(prefix,200,phoneBook) != NULL){
+        printf("%s",&prefix[i]);// not sure what happen but somehow it print missing character after the first line of prefixnumber.txt
+        i++;
+
     }
-    fclose(fp);
+    fclose(phoneBook);
 }
 
 /*
